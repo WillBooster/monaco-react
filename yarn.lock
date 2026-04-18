@@ -2309,12 +2309,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@willbooster/monaco-loader@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@willbooster/monaco-loader@npm:1.0.1"
-  peerDependencies:
-    monaco-editor: ^0.55.1
-  checksum: 10c0/19346f7b69566db437e7f55a9634bed80d41ce658c7af65c28fa7020fd477051dcdefb607c721f78074259f6297ee6f9c44140c1b3b99a7784f9ca4cb1e8bf61
+"@willbooster/monaco-loader@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@willbooster/monaco-loader@npm:1.1.1"
+  dependencies:
+    monaco-editor: "npm:0.55.1"
+  checksum: 10c0/18111cd208bf59d1b2f6787b248d59e330a8877eccc6a16ed886e864ac6124839ccd379d74d4749c94aaf39155658a0e55e96f18866c1131d25db8b450c12733
   languageName: node
   linkType: hard
 
@@ -2332,7 +2332,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     "@types/react-dom": "npm:19.2.3"
     "@typescript/native-preview": "npm:7.0.0-dev.20260417.1"
-    "@willbooster/monaco-loader": "npm:1.0.1"
+    "@willbooster/monaco-loader": "npm:1.1.1"
     "@willbooster/oxfmt-config": "npm:1.2.1"
     "@willbooster/oxlint-config": "npm:1.4.4"
     "@willbooster/prettier-config": "npm:10.4.0"

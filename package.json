@@ -55,7 +55,7 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@willbooster/monaco-loader": "1.0.1",
+    "@willbooster/monaco-loader": "1.1.1",
     "monaco-editor": "0.55.1"
   },
   "devDependencies": {
