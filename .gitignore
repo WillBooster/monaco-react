@@ -19,6 +19,8 @@ __generated__/
 dist/
 temp/
 tmp/
+playwright-report/
+test-results/
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows
@@ -445,8 +447,6 @@ web_modules/
 
 # Next.js build output
 .next
-playwright-report/
-test-results/
 out
 
 # Nuxt.js build / generate output
