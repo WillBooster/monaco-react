@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import Editor, { DiffEditor, loader, useMonaco, type Monaco } from '@willbooster/monaco-react';
 
+type LoaderConfig = Parameters<typeof loader.config>[0];
+
 const model = {
   uri: { path: '/e2e.ts' },
   dispose: () => {},
@@ -53,7 +55,7 @@ const monaco = {
   },
 } as unknown as Monaco;
 
-loader.config({ monaco });
+loader.config({ monaco: monaco as LoaderConfig['monaco'] });
 
 export default function EditorProbe() {
   const [editorStatus, setEditorStatus] = useState('editor-pending');
