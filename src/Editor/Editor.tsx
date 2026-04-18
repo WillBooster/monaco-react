@@ -43,7 +43,7 @@ function Editor({
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [isMonacoMounting, setIsMonacoMounting] = useState(true);
   const monacoRef = useRef<Monaco | null>(null);
-  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<editor.IStandaloneCodeEditor | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const onMountRef = useRef(onMount);
   const beforeMountRef = useRef(beforeMount);
@@ -167,7 +167,9 @@ function Editor({
       );
       editorRef.current = editor;
 
-      saveViewState && editor.restoreViewState(viewStates.get(autoCreatedModelPath));
+      if (saveViewState) {
+        editor.restoreViewState(viewStates.get(autoCreatedModelPath));
+      }
 
       monacoRef.current.editor.setTheme(theme);
 
@@ -199,7 +201,9 @@ function Editor({
   }, [isEditorReady]);
 
   useEffect(() => {
-    !isMonacoMounting && !isEditorReady && createEditor();
+    if (!isMonacoMounting && !isEditorReady) {
+      createEditor();
+    }
   }, [isMonacoMounting, isEditorReady, createEditor]);
 
   // subscription
@@ -248,14 +252,16 @@ function Editor({
     subscriptionRef.current?.dispose();
 
     if (keepCurrentModel) {
-      saveViewState && viewStates.set(path, editorRef.current!.saveViewState());
+      if (saveViewState) {
+        viewStates.set(path, editorRef.current!.saveViewState());
+      }
     } else {
       editorRef.current!.getModel()?.dispose();
     }
 
     editorRef.current!.dispose();
 
-    editorRef.current = null;
+    editorRef.current = undefined;
     preventCreation.current = false;
     setIsEditorReady(false);
   }

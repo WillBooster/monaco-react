@@ -1,5 +1,5 @@
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
-import type { Monaco, Theme } from '..';
+import type { Monaco } from '..';
 import type { ReactNode } from 'react';
 
 export type OnMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => void;
@@ -51,7 +51,7 @@ export interface EditorProps {
    * Define new themes by `monaco.editor.defineTheme`
    * @default "light"
    */
-  theme?: Theme | string;
+  theme?: string;
 
   /**
    * The line to jump on it

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import Editor, { DiffEditor, loader, useMonaco, type Monaco } from '@willbooster/monaco-react';
+import MonacoEditor, { DiffEditor, loader, useMonaco, type Monaco } from '@willbooster/monaco-react';
 
 type LoaderConfig = Parameters<typeof loader.config>[0];
 
@@ -66,7 +66,7 @@ export default function EditorProbe() {
     <>
       <p data-testid="hook-status">{loadedMonaco === monaco ? 'hook-ok' : 'hook-pending'}</p>
       <div data-testid="editor-status">{editorStatus}</div>
-      <Editor
+      <MonacoEditor
         height={120}
         defaultValue="const answer = 42;"
         defaultLanguage="typescript"
