@@ -1,5 +1,6 @@
 import loader from '@willbooster/monaco-loader';
 export { loader };
+export { shikiToMonaco } from '@shikijs/monaco';
 
 import DiffEditor from './DiffEditor';
 export * from './DiffEditor/types';

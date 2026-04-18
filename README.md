@@ -12,10 +12,10 @@ This package is a maintained fork of [`suren-atoyan/monaco-react`](https://githu
 ## Installation
 
 ```bash
-yarn add @willbooster/monaco-react monaco-editor
+yarn add @willbooster/monaco-react
 ```
 
-`react`, `react-dom`, and `monaco-editor` are peer dependencies. This package supports React 19.x, Node.js 24 or newer, and is tested with Next.js 16.
+`react` and `react-dom` are peer dependencies. This package supports React 19.x, Node.js 24 or newer, and is tested with Next.js 16.
 
 ## Usage
 
@@ -34,13 +34,14 @@ export default function Page() {
 ## API
 
 ```tsx
-import Editor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react';
+import Editor, { DiffEditor, loader, shikiToMonaco, useMonaco } from '@willbooster/monaco-react';
 ```
 
 - `Editor`: Monaco standalone code editor component.
 - `DiffEditor`: Monaco standalone diff editor component.
 - `useMonaco`: React hook returning the initialized Monaco instance.
 - `loader`: the `@willbooster/monaco-loader` instance used by the components.
+- `shikiToMonaco`: Adapter for registering a Shiki highlighter with Monaco.
 
 ### Editor
 
@@ -63,6 +64,18 @@ import Editor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react
 
 ```tsx
 <DiffEditor height="90vh" language="typescript" original="const value = 1;" modified="const value = 2;" />
+```
+
+### Shiki Integration
+
+```tsx
+import Editor, { shikiToMonaco } from '@willbooster/monaco-react';
+
+<Editor
+  beforeMount={(monaco) => {
+    shikiToMonaco(highlighter, monaco);
+  }}
+/>;
 ```
 
 ### Loader Configuration
