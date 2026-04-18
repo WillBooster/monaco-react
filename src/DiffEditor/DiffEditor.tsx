@@ -194,13 +194,16 @@ function DiffEditor({
   }, [isEditorReady]);
 
   useEffect(() => {
-    !isMonacoMounting && !isEditorReady && createEditor();
+    if (!isMonacoMounting && !isEditorReady) {
+      createEditor();
+    }
   }, [isMonacoMounting, isEditorReady, createEditor]);
 
   function disposeEditor(): void {
     const editor = editorRef.current;
     const models = editor?.getModel();
 
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches diff models with null.
     editor?.setModel(null);
     editor?.dispose();
 
@@ -212,6 +215,7 @@ function DiffEditor({
       models?.modified?.dispose();
     }
 
+    // oxlint-disable-next-line unicorn/no-null -- React refs use null after unmount.
     editorRef.current = null;
     preventCreation.current = false;
     setIsEditorReady(false);
