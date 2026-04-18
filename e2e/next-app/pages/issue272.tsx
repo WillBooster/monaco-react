@@ -1,16 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-import MonacoEditor, { loader } from '@willbooster/monaco-react';
-import { mockMonaco } from '../fixtures/mockMonaco';
-
-type LoaderConfig = Parameters<typeof loader.config>[0];
-
-declare global {
-  var __issue272StylesheetInjected: boolean | undefined;
-}
-
-loader.config({ monaco: mockMonaco as LoaderConfig['monaco'] });
+import MonacoEditor from '@willbooster/monaco-react';
 
 export default function Issue272Page() {
   const [headRevision, setHeadRevision] = useState(0);
@@ -20,7 +11,6 @@ export default function Issue272Page() {
   const faviconHref = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext%3E${headRevision}%3C/text%3E%3C/svg%3E`;
 
   useEffect(() => {
-    injectMonacoStylesheetOnce();
     setStylesheetCount(countMonacoStylesheets());
   }, [headRevision, isEditorVisible]);
 
@@ -51,7 +41,7 @@ export default function Issue272Page() {
             defaultLanguage="typescript"
             onMount={(_, monaco) => {
               setStylesheetCount(countMonacoStylesheets());
-              setEditorStatus(monaco === mockMonaco ? 'editor-ok' : 'editor-mismatch');
+              setEditorStatus(monaco.editor ? 'editor-ok' : 'editor-mismatch');
             }}
           />
         )}
@@ -60,19 +50,6 @@ export default function Issue272Page() {
   );
 }
 
-function injectMonacoStylesheetOnce() {
-  if (globalThis.__issue272StylesheetInjected) return;
-  if (document.querySelector('link[data-name="vs/editor/editor.main"]')) return;
-
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.type = 'text/css';
-  stylesheet.dataset.name = 'vs/editor/editor.main';
-  stylesheet.href = 'data:text/css,.issue272-monaco{}';
-  document.head.append(stylesheet);
-  globalThis.__issue272StylesheetInjected = true;
-}
-
 function countMonacoStylesheets() {
-  return document.querySelectorAll('link[data-name="vs/editor/editor.main"]').length;
+  return document.querySelectorAll('link[rel="stylesheet"][href*="/vs/editor/editor.main.css"]').length;
 }

@@ -2,13 +2,7 @@
 
 import { useState } from 'react';
 
-import MonacoEditor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react';
-import { mockMonaco } from '../fixtures/mockMonaco';
-
-type LoaderConfig = Parameters<typeof loader.config>[0];
-const monaco = mockMonaco;
-
-loader.config({ monaco: monaco as LoaderConfig['monaco'] });
+import MonacoEditor, { DiffEditor, useMonaco } from '@willbooster/monaco-react';
 
 export default function EditorProbe() {
   const [editorStatus, setEditorStatus] = useState('editor-pending');
@@ -17,7 +11,7 @@ export default function EditorProbe() {
 
   return (
     <>
-      <p data-testid="hook-status">{loadedMonaco === monaco ? 'hook-ok' : 'hook-pending'}</p>
+      <p data-testid="hook-status">{loadedMonaco?.editor ? 'hook-ok' : 'hook-pending'}</p>
       <div data-testid="editor-status">{editorStatus}</div>
       <MonacoEditor
         height={120}
@@ -25,7 +19,7 @@ export default function EditorProbe() {
         defaultLanguage="typescript"
         onMount={(editor, mountedMonaco) => {
           void editor;
-          setEditorStatus(mountedMonaco === monaco ? 'editor-ok' : 'editor-mismatch');
+          setEditorStatus(mountedMonaco.editor ? 'editor-ok' : 'editor-mismatch');
         }}
       />
       <div data-testid="diff-status">{diffStatus}</div>
@@ -36,7 +30,7 @@ export default function EditorProbe() {
         language="typescript"
         onMount={(editor, mountedMonaco) => {
           void editor;
-          setDiffStatus(mountedMonaco === monaco ? 'diff-ok' : 'diff-mismatch');
+          setDiffStatus(mountedMonaco.editor ? 'diff-ok' : 'diff-mismatch');
         }}
       />
     </>
