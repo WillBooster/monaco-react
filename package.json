@@ -14,19 +14,13 @@
   "bugs": {
     "url": "https://github.com/WillBooster/monaco-react/issues"
   },
-  "license": "MIT",
-  "author": "WillBooster Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WillBooster/monaco-react.git"
   },
-  "files": [
-    "dist/"
-  ],
+  "license": "MIT",
+  "author": "WillBooster Inc.",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,11 +28,14 @@
       "import": "./dist/index.js"
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "build": "tsup",
+    "build": "build-ts lib --minify=false",
     "check-all-for-ai": "yarn check-for-ai && yarn test",
     "check-for-ai": "yarn install > /dev/null && yarn format > /dev/null 2> /dev/null || true && yarn lint-fix --quiet",
     "cleanup": "yarn format && yarn lint-fix",
@@ -70,6 +67,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260418.1",
     "@willbooster/oxfmt-config": "1.2.1",
     "@willbooster/oxlint-config": "1.4.4",
+    "build-ts": "17.1.5",
     "conventional-changelog-conventionalcommits": "9.3.1",
     "jsdom": "29.0.2",
     "lefthook": "2.1.5",
@@ -81,7 +79,6 @@
     "react-dom": "19.2.5",
     "semantic-release": "25.0.3",
     "sort-package-json": "3.6.1",
-    "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vitest": "4.1.4"
   },
@@ -89,8 +86,11 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
+  "packageManager": "yarn@4.14.1",
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "yarn@4.14.1"
+  "publishConfig": {
+    "access": "public"
+  }
 }
