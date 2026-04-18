@@ -14,19 +14,13 @@
   "bugs": {
     "url": "https://github.com/WillBooster/monaco-react/issues"
   },
-  "license": "MIT",
-  "author": "WillBooster Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WillBooster/monaco-react.git"
   },
-  "files": [
-    "dist/"
-  ],
+  "license": "MIT",
+  "author": "WillBooster Inc.",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,9 +28,12 @@
       "import": "./dist/index.js"
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "tsup",
     "check-all-for-ai": "yarn check-for-ai && yarn test",
@@ -54,8 +51,10 @@
     "test/ci-setup": "playwright install chromium",
     "typecheck": "tsgo --noEmit"
   },
+  "prettier": "@willbooster/prettier-config",
   "dependencies": {
-    "@willbooster/monaco-loader": "1.0.1"
+    "@willbooster/monaco-loader": "1.0.1",
+    "monaco-editor": "0.55.1"
   },
   "devDependencies": {
     "@playwright/test": "1.59.1",
@@ -74,7 +73,6 @@
     "conventional-changelog-conventionalcommits": "9.3.1",
     "jsdom": "29.0.2",
     "lefthook": "2.1.5",
-    "monaco-editor": "0.55.1",
     "next": "16.2.4",
     "oxfmt": "0.45.0",
     "oxlint": "1.60.0",
@@ -90,13 +88,14 @@
     "vitest": "4.1.4"
   },
   "peerDependencies": {
-    "monaco-editor": "^0.55.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-  "prettier": "@willbooster/prettier-config",
+  "packageManager": "yarn@4.14.1",
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "yarn@4.14.1"
+  "publishConfig": {
+    "access": "public"
+  }
 }

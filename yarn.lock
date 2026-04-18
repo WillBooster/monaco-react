@@ -2354,7 +2354,6 @@ __metadata:
     typescript: "npm:5.9.3"
     vitest: "npm:4.1.4"
   peerDependencies:
-    monaco-editor: ^0.55.1
     react: ^19.0.0
     react-dom: ^19.0.0
   languageName: unknown
