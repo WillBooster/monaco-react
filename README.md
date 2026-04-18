@@ -1,4 +1,4 @@
-# @monaco-editor/react &middot; [![monthly downloads](https://img.shields.io/npm/dm/@monaco-editor/react)](https://www.npmjs.com/package/@monaco-editor/react) [![gitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/suren-atoyan/monaco-react/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@monaco-editor/react.svg?style=flat)](https://www.npmjs.com/package/@monaco-editor/react) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/suren-atoyan/monaco-react/pulls)
+# @willbooster/monaco-react &middot; [![monthly downloads](https://img.shields.io/npm/dm/@willbooster/monaco-react)](https://www.npmjs.com/package/@willbooster/monaco-react) [![gitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/WillBooster/monaco-react/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@willbooster/monaco-react.svg?style=flat)](https://www.npmjs.com/package/@willbooster/monaco-react) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/WillBooster/monaco-react/pulls)
 
 <a href="http://monaco-react.surenatoyan.com/" target="_blank" rel="noreferrer">
   <img align="center" width="100%" height="auto" src="./playground/logo.svg" style="margin-bottom: 10px">
@@ -7,6 +7,8 @@
 <p />
 
 Monaco Editor for React &middot; use the [monaco-editor](https://microsoft.github.io/monaco-editor/) in **any** [React](https://reactjs.org/) application without needing to use `webpack` (or `rollup`/`parcel`/etc) configuration files / plugins
+
+This repository is a fork of [suren-atoyan/monaco-react](https://github.com/suren-atoyan/monaco-react). The fork is published as [`@willbooster/monaco-react`](https://www.npmjs.com/package/@willbooster/monaco-react).
 
 <hr />
 
@@ -29,7 +31,7 @@ The [monaco-editor](https://microsoft.github.io/monaco-editor/) is a well-known 
 
 #### Demo
 
-[Check it out!](https://monaco-react.surenatoyan.com/)
+[Check out the upstream demo.](https://monaco-react.surenatoyan.com/)
 
 ## Documentation
 
@@ -56,13 +58,13 @@ The [monaco-editor](https://microsoft.github.io/monaco-editor/) is a well-known 
 ### Installation
 
 ```bash
-npm install @monaco-editor/react # or @monaco-editor/react@next for React v19
+npm install @willbooster/monaco-react
 ```
 
 or
 
 ```bash
-yarn add @monaco-editor/react
+yarn add @willbooster/monaco-react
 ```
 
 or you can use `CDN`. [Here is an example](https://codesandbox.io/s/cdn-example-fnhfr?file=/index.html)
@@ -71,7 +73,7 @@ or you can use `CDN`. [Here is an example](https://codesandbox.io/s/cdn-example-
 
 ## Ask AI
 
-[Monaco-React](https://codeparrot.ai/oracle?owner=suren-atoyan&repo=monaco-react) AI will help you understand this repository better. You can ask for code examples, installation guide, debugging help and much more.
+[Monaco-React](https://codeparrot.ai/oracle?owner=WillBooster&repo=monaco-react) AI will help you understand this repository better. You can ask for code examples, installation guide, debugging help and much more.
 
 
 ### Introduction
@@ -79,7 +81,7 @@ or you can use `CDN`. [Here is an example](https://codesandbox.io/s/cdn-example-
 Besides types, the library exports `Editor`and `DiffEditor` components, as well as the `loader` utility and the `useMonaco` hook:
 
 ```javascript
-import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
+import Editor, { DiffEditor, useMonaco, loader } from '@willbooster/monaco-react';
 ```
 
 ### Usage
@@ -94,7 +96,7 @@ You just need to import and render the `Editor` component:
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   return <Editor height="90vh" defaultLanguage="javascript" defaultValue="// some comment" />;
@@ -112,7 +114,7 @@ ReactDOM.render(<App />, rootElement);
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   function handleEditorChange(value, event) {
@@ -164,7 +166,7 @@ There are two options to get the current value:
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   const editorRef = useRef(null);
@@ -202,7 +204,7 @@ ReactDOM.render(<App />, rootElement);
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   function handleEditorChange(value, event) {
@@ -231,7 +233,7 @@ ReactDOM.render(<App />, rootElement);
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
-import { DiffEditor } from '@monaco-editor/react';
+import { DiffEditor } from '@willbooster/monaco-react';
 
 function App() {
   const diffEditorRef = useRef(null);
@@ -279,7 +281,7 @@ The `editor` instance is exposed from the `onMount` prop as a first parameter, t
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   const editorRef = useRef(null);
@@ -316,7 +318,7 @@ There are three options to get the `monaco` instance:
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   const monacoRef = useRef(null);
@@ -353,7 +355,7 @@ ReactDOM.render(<App />, rootElement);
 2. via `loader` utility
 
 ```javascript
-import { loader } from '@monaco-editor/react';
+import { loader } from '@willbooster/monaco-react';
 
 loader.init().then((monaco) => console.log('here is the monaco instance:', monaco));
 ```
@@ -366,7 +368,7 @@ loader.init().then((monaco) => console.log('here is the monaco instance:', monac
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import Editor, { useMonaco } from '@willbooster/monaco-react';
 
 function App() {
   const monaco = useMonaco();
@@ -394,7 +396,7 @@ ReactDOM.render(<App />, rootElement);
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import Editor, { useMonaco } from '@willbooster/monaco-react';
 
 function App() {
   const monaco = useMonaco();
@@ -422,7 +424,7 @@ ReactDOM.render(<App />, rootElement);
 The library exports (named) the utility called `loader`. Basically, it's the reference of [@monaco-editor/loader](https://github.com/suren-atoyan/monaco-loader). By default, `monaco` files are being downloaded from `CDN`. There is an ability to change this behavior, and other things concerning the `AMD` loader of `monaco`. We have a default [config file](https://github.com/suren-atoyan/monaco-loader/blob/master/src/config/index.js) that you can modify by the way shown below:
 
 ```js
-import { loader } from '@monaco-editor/react';
+import { loader } from '@willbooster/monaco-react';
 
 // you can change the source of the monaco files
 loader.config({ paths: { vs: '...' } });
@@ -449,7 +451,7 @@ Starting from version `v4.4.0` it's possible to use `monaco-editor` as an `npm` 
 
 ```javascript
 import * as monaco from 'monaco-editor';
-import { loader } from '@monaco-editor/react';
+import { loader } from '@willbooster/monaco-react';
 
 loader.config({ monaco });
 
@@ -461,7 +463,7 @@ NOTE: you should be aware that this may require additional `webpack` plugins, li
 If you use [Vite](https://vitejs.dev/), you need to do this:
 
 ```javascript
-import { loader } from '@monaco-editor/react';
+import { loader } from '@willbooster/monaco-react';
 
 import * as monaco from 'monaco-editor';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
@@ -529,7 +531,7 @@ And here is our simple multi-model editor implementation:
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   const [fileName, setFileName] = useState('script.js');
@@ -592,7 +594,7 @@ will give you more flexibility in working with a multi-model editor.
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Editor from '@monaco-editor/react';
+import Editor from '@willbooster/monaco-react';
 
 function App() {
   function handleEditorValidation(markers) {
@@ -661,10 +663,10 @@ It's important to mention that according to [monaco-editor](https://microsoft.gi
 As a usual `React` component, this one also works fine with an electron-react environment, without need to have a `webpack` configuration or other extra things. But there are several cases that developers usually face to and sometimes it can be confusing. Here they are:
 
 1. **You see loading screen stuck**
-   Usually, it's because your environment doesn't allow you to load external sources. By default, it loads `monaco` sources from `CDN`. You can see the [default configuration](https://github.com/suren-atoyan/monaco-loader/blob/master/src/config/index.js). But sure you can change that behavior; the library is fully configurable. Read about it [here](https://github.com/suren-atoyan/monaco-react#loader-config). So, if you want to download it from your local files, you can do it like this:
+   Usually, it's because your environment doesn't allow you to load external sources. By default, it loads `monaco` sources from `CDN`. You can see the [default configuration](https://github.com/suren-atoyan/monaco-loader/blob/master/src/config/index.js). But sure you can change that behavior; the library is fully configurable. Read about it [here](https://github.com/WillBooster/monaco-react#loader-config). So, if you want to download it from your local files, you can do it like this:
 
 ```javascript
-import { loader } from '@monaco-editor/react';
+import { loader } from '@willbooster/monaco-react';
 
 loader.config({ paths: { vs: '../path-to-monaco' } });
 ```
@@ -691,19 +693,19 @@ loader.config({
 
 There were several issues about this topic that can be helpful too - [1](https://github.com/suren-atoyan/monaco-react/issues/48) [2](https://github.com/suren-atoyan/monaco-react/issues/12) [3](https://github.com/suren-atoyan/monaco-react/issues/58) [4](https://github.com/suren-atoyan/monaco-react/issues/87)
 
-Also, there is a [blog post](https://www.jameskerr.blog/posts/offline-monaco-editor-in-electron/) about using `@monaco-editor/react` in `Electron` in offline mode. You may find it helpful.
+Also, there is a [blog post](https://www.jameskerr.blog/posts/offline-monaco-editor-in-electron/) about using `@willbooster/monaco-react` in `Electron` in offline mode. You may find it helpful.
 
 And if you use `electron` with `monaco` and `react` and have faced an issue different than the above-discribed ones, please let us know to make this section more helpful
 
 ##### For `Next.js` users
 
-Like other React components, this one also works with `Next.js` without a hitch. The part of the source that should be pre-parsed is optimized for server-side rendering, so, in usual cases, it will work fine, but if you want to have access, for example, to [`monaco instance`](https://github.com/suren-atoyan/monaco-react#monaco-instance) you should be aware that it wants to access the `document` object, and it requires browser environment. Basically you just need to avoid running that part out of browser environment, there are several ways to do that. The one is described [here](https://nextjs.org/docs/app/guides/lazy-loading#nextdynamic)
+Like other React components, this one also works with `Next.js` without a hitch. The part of the source that should be pre-parsed is optimized for server-side rendering, so, in usual cases, it will work fine, but if you want to have access, for example, to [`monaco instance`](https://github.com/WillBooster/monaco-react#monaco-instance) you should be aware that it wants to access the `document` object, and it requires browser environment. Basically you just need to avoid running that part out of browser environment, there are several ways to do that. The one is described [here](https://nextjs.org/docs/app/guides/lazy-loading#nextdynamic)
 
 And if you use `monaco` with `Next.js` and have faced an issue different than the above-described one, please let us know to make this section more helpful
 
 #### Create your own editor
 
-Under the hood this library uses [@monaco-editor/loader](https://github.com/suren-atoyan/monaco-loader) that provides a utility called `loader`. The `loader` utility is a collection of functions that are being used to setup `monaco` editor into your browser. `loader.init()` handles the whole initialization process and returns the instance of the `monaco` - `loader.init().then(monaco => console.log("here is the monaco instance:", monaco))`. The `Editor` component uses this utility, gains access to `monaco instance` and creates the editor. [Here](https://github.com/suren-atoyan/monaco-react/blob/master/src/Editor/Editor.tsx) is the implementation of the `Editor` component. You can use the same technique to create your own `Editor`. You can just import the `loader` utility, access to `monaco instance`, and create your own editor with your own custom logic. The shortest way to do it:
+Under the hood this library uses [@monaco-editor/loader](https://github.com/suren-atoyan/monaco-loader) that provides a utility called `loader`. The `loader` utility is a collection of functions that are being used to setup `monaco` editor into your browser. `loader.init()` handles the whole initialization process and returns the instance of the `monaco` - `loader.init().then(monaco => console.log("here is the monaco instance:", monaco))`. The `Editor` component uses this utility, gains access to `monaco instance` and creates the editor. [Here](https://github.com/WillBooster/monaco-react/blob/master/src/Editor/Editor.tsx) is the implementation of the `Editor` component. You can use the same technique to create your own `Editor`. You can just import the `loader` utility, access to `monaco instance`, and create your own editor with your own custom logic. The shortest way to do it:
 
 ```javascript
 import loader from '@monaco-editor/loader';
@@ -731,7 +733,7 @@ It's always important to have a place, where you can play with the internals of 
 - clone the repository
 
 ```bash
-git clone https://github.com/suren-atoyan/monaco-react.git
+git clone https://github.com/WillBooster/monaco-react.git
 ```
 
 - go to the library folder

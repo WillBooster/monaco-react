@@ -1,6 +1,6 @@
 {
   "name": "@willbooster/monaco-react",
-  "version": "4.8.0-rc.3",
+  "version": "0.0.0-semantically-released",
   "description": "Monaco Editor for React - use the monaco-editor in any React application without needing to use webpack (or rollup/parcel/etc) configuration files / plugins",
   "author": "Suren Atoyan <contact@surenatoyan.com>",
   "main": "dist/index.js",
