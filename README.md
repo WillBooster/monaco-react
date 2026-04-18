@@ -12,10 +12,10 @@ This package is a maintained fork of [`suren-atoyan/monaco-react`](https://githu
 ## Installation
 
 ```bash
-yarn add @willbooster/monaco-react monaco-editor
+yarn add @willbooster/monaco-react
 ```
 
-`react`, `react-dom`, and `monaco-editor` are peer dependencies. This package supports React 19.x, Node.js 24 or newer, and is tested with Next.js 16.
+`react` and `react-dom` are peer dependencies. `monaco-editor` is a direct dependency for Monaco type resolution. This package supports React 19.x, Node.js 24 or newer, and is tested with Next.js 16.
 
 ## Usage
 

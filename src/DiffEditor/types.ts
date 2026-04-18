@@ -1,6 +1,6 @@
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
 import type { ReactNode } from 'react';
-import type { Monaco, Theme } from '..';
+import type { Monaco } from '..';
 
 export type MonacoDiffEditor = editor.IStandaloneDiffEditor;
 
@@ -68,7 +68,7 @@ export interface DiffEditorProps {
    * Define new themes by `monaco.editor.defineTheme`
    * @default "light"
    */
-  theme?: Theme | string;
+  theme?: string;
 
   /**
    * The loading screen before the editor will be mounted
