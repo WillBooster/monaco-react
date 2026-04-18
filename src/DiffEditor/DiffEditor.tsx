@@ -194,21 +194,31 @@ function DiffEditor({
   }, [isEditorReady]);
 
   useEffect(() => {
-    !isMonacoMounting && !isEditorReady && createEditor();
+    if (!isMonacoMounting && !isEditorReady) {
+      createEditor();
+    }
   }, [isMonacoMounting, isEditorReady, createEditor]);
 
   function disposeEditor(): void {
-    const models = editorRef.current?.getModel();
+    const editor = editorRef.current;
+    const models = editor?.getModel();
 
-    if (!keepCurrentOriginalModel) {
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches diff models with null.
+    editor?.setModel(null);
+    editor?.dispose();
+
+    if (!keepCurrentOriginalModel && !models?.original.isDisposed()) {
       models?.original?.dispose();
     }
 
-    if (!keepCurrentModifiedModel) {
+    if (!keepCurrentModifiedModel && !models?.modified.isDisposed()) {
       models?.modified?.dispose();
     }
 
-    editorRef.current?.dispose();
+    // oxlint-disable-next-line unicorn/no-null -- React refs use null after unmount.
+    editorRef.current = null;
+    preventCreation.current = false;
+    setIsEditorReady(false);
   }
 
   return (
