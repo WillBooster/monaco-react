@@ -1,6 +1,6 @@
-import { type editor } from 'monaco-editor';
-import { type ReactNode } from 'react';
-import { type Monaco, type Theme } from '..';
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { ReactNode } from 'react';
+import type { Monaco, Theme } from '..';
 
 export type MonacoDiffEditor = editor.IStandaloneDiffEditor;
 
@@ -8,7 +8,7 @@ export type DiffOnMount = (editor: MonacoDiffEditor, monaco: Monaco) => void;
 
 export type DiffBeforeMount = (monaco: Monaco) => void;
 
-export type DiffEditorProps = {
+export interface DiffEditorProps {
   /**
    * The original source (left one) value
    */
@@ -118,4 +118,4 @@ export type DiffEditorProps = {
    * Defaults to "noop"
    */
   onMount?: DiffOnMount;
-};
+}

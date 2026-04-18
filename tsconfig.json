@@ -1,21 +1,42 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "target": "es2020",
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./dist",
-    "strict": true,
-    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "importHelpers": false,
+    "jsx": "react-jsx",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "moduleResolution": "node",
-    "jsx": "react",
-    "esModuleInterop": true
+    "outDir": "./dist",
+    "paths": {
+      "@willbooster/monaco-react": ["./src/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2020",
+    "types": ["node", "vitest/globals"]
   },
-  "include": ["src", "tsup.config.ts", "setupTests.ts", "vitest.config.ts"]
+  "exclude": ["test/fixtures"],
+  "extends": ["@tsconfig/node-lts/tsconfig.json", "@tsconfig/node-ts/tsconfig.json"],
+  "include": [
+    "*.config.ts",
+    "e2e/**/*",
+    "scripts/**/*",
+    "setupTests.ts",
+    "src",
+    "src/**/*",
+    "test/**/*",
+    "vitest.config.ts"
+  ]
 }

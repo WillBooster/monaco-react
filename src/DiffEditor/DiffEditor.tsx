@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import loader from '@monaco-editor/loader';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import type { ReactElement } from 'react';
+import loader from '@willbooster/monaco-loader';
 
 import MonacoContainer from '../MonacoContainer';
 import useMount from '../hooks/useMount';
 import useUpdate from '../hooks/useUpdate';
 import { noop, getOrCreateModel } from '../utils';
-import { type DiffEditorProps, type MonacoDiffEditor } from './types';
-import { type Monaco } from '..';
+import type { DiffEditorProps, MonacoDiffEditor } from './types';
+import type { Monaco } from '..';
 
 function DiffEditor({
   original,
@@ -29,7 +30,7 @@ function DiffEditor({
   wrapperProps = {},
   beforeMount = noop,
   onMount = noop,
-}: DiffEditorProps) {
+}: DiffEditorProps): ReactElement {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [isMonacoMounting, setIsMonacoMounting] = useState(true);
   const editorRef = useRef<MonacoDiffEditor | null>(null);
@@ -43,11 +44,8 @@ function DiffEditor({
     const cancelable = loader.init();
 
     cancelable
-      .then((monaco) => (monacoRef.current = monaco) && setIsMonacoMounting(false))
-      .catch(
-        (error) =>
-          error?.type !== 'cancelation' && console.error('Monaco initialization: error:', error),
-      );
+      .then((monaco) => (monacoRef.current = monaco as Monaco) && setIsMonacoMounting(false))
+      .catch((error) => error?.type !== 'cancelation' && console.error('Monaco initialization: error:', error));
 
     return () => (editorRef.current ? disposeEditor() : cancelable.cancel());
   });
@@ -60,7 +58,7 @@ function DiffEditor({
           monacoRef.current,
           original || '',
           originalLanguage || language || 'text',
-          originalModelPath || '',
+          originalModelPath || ''
         );
 
         if (model !== originalEditor.getModel()) {
@@ -69,7 +67,7 @@ function DiffEditor({
       }
     },
     [originalModelPath],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -80,7 +78,7 @@ function DiffEditor({
           monacoRef.current,
           modified || '',
           modifiedLanguage || language || 'text',
-          modifiedModelPath || '',
+          modifiedModelPath || ''
         );
 
         if (model !== modifiedEditor.getModel()) {
@@ -89,7 +87,7 @@ function DiffEditor({
       }
     },
     [modifiedModelPath],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -112,7 +110,7 @@ function DiffEditor({
       }
     },
     [modified],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -120,7 +118,7 @@ function DiffEditor({
       editorRef.current?.getModel()?.original.setValue(original || '');
     },
     [original],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -131,7 +129,7 @@ function DiffEditor({
       monacoRef.current!.editor.setModelLanguage(modified, modifiedLanguage || language || 'text');
     },
     [language, originalLanguage, modifiedLanguage],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -139,7 +137,7 @@ function DiffEditor({
       monacoRef.current?.editor.setTheme(theme);
     },
     [theme],
-    isEditorReady,
+    isEditorReady
   );
 
   useUpdate(
@@ -147,7 +145,7 @@ function DiffEditor({
       editorRef.current?.updateOptions(options);
     },
     [options],
-    isEditorReady,
+    isEditorReady
   );
 
   const setModels = useCallback(() => {
@@ -157,29 +155,21 @@ function DiffEditor({
       monacoRef.current,
       original || '',
       originalLanguage || language || 'text',
-      originalModelPath || '',
+      originalModelPath || ''
     );
 
     const modifiedModel = getOrCreateModel(
       monacoRef.current,
       modified || '',
       modifiedLanguage || language || 'text',
-      modifiedModelPath || '',
+      modifiedModelPath || ''
     );
 
     editorRef.current?.setModel({
       original: originalModel,
       modified: modifiedModel,
     });
-  }, [
-    language,
-    modified,
-    modifiedLanguage,
-    original,
-    originalLanguage,
-    originalModelPath,
-    modifiedModelPath,
-  ]);
+  }, [language, modified, modifiedLanguage, original, originalLanguage, originalModelPath, modifiedModelPath]);
 
   const createEditor = useCallback(() => {
     if (!preventCreation.current && containerRef.current) {
@@ -207,7 +197,7 @@ function DiffEditor({
     !isMonacoMounting && !isEditorReady && createEditor();
   }, [isMonacoMounting, isEditorReady, createEditor]);
 
-  function disposeEditor() {
+  function disposeEditor(): void {
     const models = editorRef.current?.getModel();
 
     if (!keepCurrentOriginalModel) {

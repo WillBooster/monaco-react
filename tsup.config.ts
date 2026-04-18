@@ -1,12 +1,20 @@
 import { defineConfig } from 'tsup';
 
-export default defineConfig((opts) => ({
+export default defineConfig({
+  banner: {
+    js: "'use client';",
+  },
   clean: true,
   dts: true,
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  minify: !opts.watch,
+  external: ['@willbooster/monaco-loader', 'monaco-editor', 'react', 'react-dom'],
+  format: ['esm', 'cjs'],
+  minify: false,
+  outExtension({ format }) {
+    return {
+      js: format === 'cjs' ? '.cjs' : '.js',
+    };
+  },
   sourcemap: true,
-  target: 'esnext',
-  outDir: 'dist',
-}));
+  target: 'es2020',
+});

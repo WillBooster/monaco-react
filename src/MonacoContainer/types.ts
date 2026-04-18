@@ -1,6 +1,6 @@
-import { type ReactNode, type RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
-export type ContainerProps = {
+export interface ContainerProps {
   width: number | string;
   height: number | string;
   isEditorReady: boolean;
@@ -8,4 +8,4 @@ export type ContainerProps = {
   _ref: RefObject<HTMLDivElement | null>;
   className?: string;
   wrapperProps?: object;
-};
+}

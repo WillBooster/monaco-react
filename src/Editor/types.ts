@@ -1,6 +1,6 @@
-import { type editor } from 'monaco-editor';
-import { type Monaco, type Theme } from '..';
-import { type ReactNode } from 'react';
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { Monaco, Theme } from '..';
+import type { ReactNode } from 'react';
 
 export type OnMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => void;
 
@@ -10,7 +10,7 @@ export type OnChange = (value: string | undefined, ev: editor.IModelContentChang
 
 export type OnValidate = (markers: editor.IMarker[]) => void;
 
-export type EditorProps = {
+export interface EditorProps {
   /**
    * Default value of the current model
    */
@@ -137,4 +137,4 @@ export type EditorProps = {
    * Defaults to "noop"
    */
   onValidate?: OnValidate;
-};
+}
