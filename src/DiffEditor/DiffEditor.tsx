@@ -198,17 +198,23 @@ function DiffEditor({
   }, [isMonacoMounting, isEditorReady, createEditor]);
 
   function disposeEditor(): void {
-    const models = editorRef.current?.getModel();
+    const editor = editorRef.current;
+    const models = editor?.getModel();
 
-    if (!keepCurrentOriginalModel) {
+    editor?.setModel(null);
+    editor?.dispose();
+
+    if (!keepCurrentOriginalModel && !models?.original.isDisposed()) {
       models?.original?.dispose();
     }
 
-    if (!keepCurrentModifiedModel) {
+    if (!keepCurrentModifiedModel && !models?.modified.isDisposed()) {
       models?.modified?.dispose();
     }
 
-    editorRef.current?.dispose();
+    editorRef.current = null;
+    preventCreation.current = false;
+    setIsEditorReady(false);
   }
 
   return (
