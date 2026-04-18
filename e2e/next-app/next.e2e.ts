@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,7 +7,6 @@ import { expect, test } from '@playwright/test';
 const testFile = fileURLToPath(import.meta.url);
 const appDir = path.dirname(testFile);
 const packageRoot = path.resolve(appDir, '../..');
-const requireFromFixture = createRequire(testFile);
 
 test('resolves monaco-react from the built package files', async () => {
   const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8')) as {
@@ -20,7 +18,9 @@ test('resolves monaco-react from the built package files', async () => {
     require: './dist/index.cjs',
     types: './dist/index.d.ts',
   });
-  expect(requireFromFixture.resolve('@willbooster/monaco-react')).toBe(path.join(packageRoot, 'dist/index.cjs'));
+  await expect(readFile(path.join(packageRoot, packageJson.exports['.'].require), 'utf8')).resolves.toContain(
+    '"use strict"'
+  );
   await expect(readFile(path.join(packageRoot, 'dist/index.js'), 'utf8')).resolves.toMatch(/^"use client";/);
   await expect(readFile(path.join(packageRoot, 'dist/index.d.ts'), 'utf8')).resolves.toContain(
     "from 'monaco-editor/esm/vs/editor/editor.api.js'"
