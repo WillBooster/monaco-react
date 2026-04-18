@@ -35,7 +35,8 @@
     "dist/"
   ],
   "scripts": {
-    "build": "build-ts lib",
+    "build": "wb buildIfNeeded -c 'yarn run build/core'",
+    "build/core": "build-ts lib",
     "check-all-for-ai": "yarn check-for-ai && yarn test",
     "check-for-ai": "yarn install > /dev/null && yarn format > /dev/null 2> /dev/null || true && yarn lint-fix --quiet",
     "cleanup": "yarn format && yarn lint-fix",
