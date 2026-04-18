@@ -1,6 +1,7 @@
-import { useEffect, useRef, type DependencyList, type EffectCallback } from 'react';
+import { useEffect, useRef } from 'react';
+import type { DependencyList, EffectCallback } from 'react';
 
-function useUpdate(effect: EffectCallback, deps: DependencyList, applyChanges = true) {
+function useUpdate(effect: EffectCallback, deps: DependencyList, applyChanges = true): void {
   const isInitialMount = useRef(true);
 
   useEffect(
@@ -9,7 +10,7 @@ function useUpdate(effect: EffectCallback, deps: DependencyList, applyChanges = 
           isInitialMount.current = false;
         }
       : effect,
-    deps,
+    deps
   );
 }
 

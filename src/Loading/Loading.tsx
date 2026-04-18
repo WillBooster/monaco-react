@@ -1,8 +1,8 @@
-import React, { type PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactElement } from 'react';
 
 import styles from './styles';
 
-function Loading({ children }: PropsWithChildren) {
+function Loading({ children }: PropsWithChildren): ReactElement {
   return <div style={styles.container}>{children}</div>;
 }
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import type { ReactElement } from 'react';
 
 import styles from './styles';
 import Loading from '../Loading';
-import { type ContainerProps } from './types';
+import type { ContainerProps } from './types';
 
 // ** forwardref render functions do not support proptypes or defaultprops **
 // one of the reasons why we use a separate prop for passing ref instead of using forwardref
@@ -15,15 +15,11 @@ function MonacoContainer({
   _ref,
   className,
   wrapperProps,
-}: ContainerProps) {
+}: ContainerProps): ReactElement {
   return (
     <section style={{ ...styles.wrapper, width, height }} {...wrapperProps}>
       {!isEditorReady && <Loading>{loading}</Loading>}
-      <div
-        ref={_ref}
-        style={{ ...styles.fullWidth, ...(!isEditorReady && styles.hide) }}
-        className={className}
-      />
+      <div ref={_ref} style={{ ...styles.fullWidth, ...(!isEditorReady && styles.hide) }} className={className} />
     </section>
   );
 }

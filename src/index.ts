@@ -1,4 +1,4 @@
-import loader from '@monaco-editor/loader';
+import loader from '@willbooster/monaco-loader';
 export { loader };
 
 import DiffEditor from './DiffEditor';
@@ -14,7 +14,7 @@ export { Editor };
 export default Editor;
 
 // Monaco
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
 export type Monaco = typeof monaco;
 
 // Default themes
