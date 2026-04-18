@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import MonacoEditor, { DiffEditor, loader, useMonaco, type Monaco } from '@willbooster/monaco-react';
+import MonacoEditor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react';
 import { mockMonaco } from '../fixtures/mockMonaco';
 
 type LoaderConfig = Parameters<typeof loader.config>[0];
