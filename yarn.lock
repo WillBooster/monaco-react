@@ -2355,8 +2355,8 @@ __metadata:
     vitest: "npm:4.1.4"
   peerDependencies:
     monaco-editor: ^0.55.1
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react: ^19.2.5
+    react-dom: ^19.2.5
   languageName: unknown
   linkType: soft
 

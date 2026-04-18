@@ -14,7 +14,7 @@ This package is a maintained fork of [`suren-atoyan/monaco-react`](https://githu
 yarn add @willbooster/monaco-react monaco-editor
 ```
 
-`react`, `react-dom`, and `monaco-editor` are peer dependencies. React 16.8 through 19 are supported.
+`react`, `react-dom`, and `monaco-editor` are peer dependencies. This package supports React 19, Node.js 24 or newer, and is tested with Next.js 16.
 
 ## Usage
 
