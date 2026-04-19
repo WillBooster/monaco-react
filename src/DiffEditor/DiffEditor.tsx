@@ -1,17 +1,60 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { Suspense, useState, useRef, useCallback, useEffect } from 'react';
 import type { ReactElement } from 'react';
-import loader from '@willbooster/monaco-loader';
 
 import MonacoContainer from '../MonacoContainer';
 import useMount from '../hooks/useMount';
 import useUpdate from '../hooks/useUpdate';
+import useMonaco from '../hooks/useMonaco';
 import { noop, getOrCreateModel } from '../utils';
 import type { DiffEditorProps, MonacoDiffEditor } from './types';
 import type { Monaco } from '..';
 
-function DiffEditor({
+function DiffEditor(props: DiffEditorProps): ReactElement {
+  const { width = '100%', height = '100%', loading = 'Loading...', className, wrapperProps = {} } = props;
+
+  return (
+    <Suspense
+      fallback={
+        <MonacoContainer
+          width={width}
+          height={height}
+          isEditorReady={false}
+          loading={loading}
+          className={className}
+          wrapperProps={wrapperProps}
+        />
+      }
+    >
+      <DiffEditorContent {...props} />
+    </Suspense>
+  );
+}
+
+function DiffEditorContent(props: DiffEditorProps): ReactElement {
+  const monaco = useMonaco();
+
+  if (!monaco) {
+    const { width = '100%', height = '100%', loading = 'Loading...', className, wrapperProps = {} } = props;
+
+    return (
+      <MonacoContainer
+        width={width}
+        height={height}
+        isEditorReady={false}
+        loading={loading}
+        className={className}
+        wrapperProps={wrapperProps}
+      />
+    );
+  }
+
+  return <MountedDiffEditor {...props} monaco={monaco} />;
+}
+
+function MountedDiffEditor({
+  monaco,
   original,
   modified,
   language,
@@ -30,24 +73,23 @@ function DiffEditor({
   wrapperProps = {},
   beforeMount = noop,
   onMount = noop,
-}: DiffEditorProps): ReactElement {
+}: DiffEditorProps & { monaco: Monaco }): ReactElement {
   const [isEditorReady, setIsEditorReady] = useState(false);
-  const [isMonacoMounting, setIsMonacoMounting] = useState(true);
   const editorRef = useRef<MonacoDiffEditor | null>(null);
-  const monacoRef = useRef<Monaco | null>(null);
+  const monacoRef = useRef<Monaco>(monaco);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const onMountRef = useRef(onMount);
   const beforeMountRef = useRef(beforeMount);
   const preventCreation = useRef(false);
 
+  monacoRef.current = monaco;
+
   useMount(() => {
-    const cancelable = loader.init();
-
-    cancelable
-      .then((monaco) => (monacoRef.current = monaco as Monaco) && setIsMonacoMounting(false))
-      .catch((error) => error?.type !== 'cancelation' && console.error('Monaco initialization: error:', error));
-
-    return () => (editorRef.current ? disposeEditor() : cancelable.cancel());
+    return () => {
+      if (editorRef.current) {
+        disposeEditor();
+      }
+    };
   });
 
   useUpdate(
@@ -149,7 +191,6 @@ function DiffEditor({
   );
 
   const setModels = useCallback(() => {
-    if (!monacoRef.current) return;
     beforeMountRef.current(monacoRef.current);
     const originalModel = getOrCreateModel(
       monacoRef.current,
@@ -194,10 +235,10 @@ function DiffEditor({
   }, [isEditorReady]);
 
   useEffect(() => {
-    if (!isMonacoMounting && !isEditorReady) {
+    if (!isEditorReady) {
       createEditor();
     }
-  }, [isMonacoMounting, isEditorReady, createEditor]);
+  }, [isEditorReady, createEditor]);
 
   function disposeEditor(): void {
     const editor = editorRef.current;

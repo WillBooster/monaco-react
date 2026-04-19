@@ -1,34 +1,32 @@
-import { useState } from 'react';
-import loader from '@willbooster/monaco-loader';
+import { use, useSyncExternalStore } from 'react';
 
-import useMount from '../useMount';
 import type { Monaco } from '../..';
+import initMonaco from './initMonaco';
 
 function useMonaco(): Monaco | undefined {
-  const [monaco, setMonaco] = useState<Monaco | undefined>(loader.__getMonacoInstance() as Monaco | undefined);
+  const isHydrated = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
 
-  useMount(() => {
-    let cancelable: ReturnType<typeof loader.init>;
+  if (!isHydrated) {
+    return undefined;
+  }
 
-    if (!monaco) {
-      cancelable = loader.init();
+  return use(initMonaco());
+}
 
-      void cancelable
-        .then((monaco) => {
-          setMonaco(monaco as Monaco);
-          return;
-        })
-        .catch((error: unknown) => {
-          if ((error as { type?: unknown })?.type !== 'cancelation') {
-            console.error('Monaco initialization: error:', error);
-          }
-        });
-    }
+function subscribe(onStoreChange: () => void): () => void {
+  const timeoutId = setTimeout(onStoreChange, 0);
 
-    return () => cancelable?.cancel();
-  });
+  return () => {
+    clearTimeout(timeoutId);
+  };
+}
 
-  return monaco;
+function getClientSnapshot(): boolean {
+  return true;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
 }
 
 export default useMonaco;
