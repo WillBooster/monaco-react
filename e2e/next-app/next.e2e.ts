@@ -43,3 +43,30 @@ test('loads monaco-react through the Next.js app router', async ({ page }) => {
   await expect(page.getByTestId('diff-status')).toHaveText('diff-ok');
   expect(errors).toEqual([]);
 });
+
+test('keeps Monaco stylesheet after Next.js Head changes', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(message.text());
+    }
+  });
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/issue272');
+
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
+
+  const remountButton = page.getByRole('button', { name: 'Remount editor' });
+  await remountButton.click();
+  await expect(page.getByTestId('head-revision')).toHaveText('1');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
+
+  await remountButton.click();
+  await expect(page.getByTestId('head-revision')).toHaveText('2');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
+  expect(errors).toEqual([]);
+});
