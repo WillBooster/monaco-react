@@ -39,7 +39,7 @@ import Editor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react
 
 - `Editor`: Monaco standalone code editor component.
 - `DiffEditor`: Monaco standalone diff editor component.
-- `useMonaco`: React hook returning the initialized Monaco instance.
+- `useMonaco`: React hook returning the initialized Monaco instance after hydration. Wrap components that call it in `Suspense`.
 - `loader`: the `@willbooster/monaco-loader` instance used by the components.
 
 ### Editor

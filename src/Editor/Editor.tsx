@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { Suspense, useState, useEffect, useRef, useCallback } from 'react';
 import type { ReactElement } from 'react';
-import loader from '@willbooster/monaco-loader';
 import useMount from '../hooks/useMount';
 import useUpdate from '../hooks/useUpdate';
 import usePrevious from '../hooks/usePrevious';
+import useMonaco from '../hooks/useMonaco';
 import type { IDisposable, Uri, editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
 import { noop, getOrCreateModel } from '../utils';
 import type { EditorProps } from './types';
@@ -14,7 +14,50 @@ import MonacoContainer from '../MonacoContainer';
 
 const viewStates = new Map();
 
-function Editor({
+function Editor(props: EditorProps): ReactElement {
+  const { width = '100%', height = '100%', loading = 'Loading...', className, wrapperProps = {} } = props;
+
+  return (
+    <Suspense
+      fallback={
+        <MonacoContainer
+          width={width}
+          height={height}
+          isEditorReady={false}
+          loading={loading}
+          className={className}
+          wrapperProps={wrapperProps}
+        />
+      }
+    >
+      <EditorContent {...props} />
+    </Suspense>
+  );
+}
+
+function EditorContent(props: EditorProps): ReactElement {
+  const monaco = useMonaco();
+
+  if (!monaco) {
+    const { width = '100%', height = '100%', loading = 'Loading...', className, wrapperProps = {} } = props;
+
+    return (
+      <MonacoContainer
+        width={width}
+        height={height}
+        isEditorReady={false}
+        loading={loading}
+        className={className}
+        wrapperProps={wrapperProps}
+      />
+    );
+  }
+
+  return <MountedEditor {...props} monaco={monaco} />;
+}
+
+function MountedEditor({
+  monaco,
   defaultValue,
   defaultLanguage,
   defaultPath,
@@ -39,10 +82,9 @@ function Editor({
   onMount = noop,
   onChange,
   onValidate = noop,
-}: EditorProps): ReactElement {
+}: EditorProps & { monaco: Monaco }): ReactElement {
   const [isEditorReady, setIsEditorReady] = useState(false);
-  const [isMonacoMounting, setIsMonacoMounting] = useState(true);
-  const monacoRef = useRef<Monaco | null>(null);
+  const monacoRef = useRef<Monaco>(monaco);
   const editorRef = useRef<editor.IStandaloneCodeEditor | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const onMountRef = useRef(onMount);
@@ -53,14 +95,14 @@ function Editor({
   const preventCreation = useRef(false);
   const preventTriggerChangeEvent = useRef<boolean>(false);
 
+  monacoRef.current = monaco;
+
   useMount(() => {
-    const cancelable = loader.init();
-
-    cancelable
-      .then((monaco) => (monacoRef.current = monaco as Monaco) && setIsMonacoMounting(false))
-      .catch((error) => error?.type !== 'cancelation' && console.error('Monaco initialization: error:', error));
-
-    return () => (editorRef.current ? disposeEditor() : cancelable.cancel());
+    return () => {
+      if (editorRef.current) {
+        disposeEditor();
+      }
+    };
   });
 
   useUpdate(
@@ -144,7 +186,7 @@ function Editor({
   );
 
   const createEditor = useCallback(() => {
-    if (!containerRef.current || !monacoRef.current) return;
+    if (!containerRef.current) return;
     if (!preventCreation.current) {
       beforeMountRef.current(monacoRef.current);
       const autoCreatedModelPath = path || defaultPath;
@@ -201,10 +243,10 @@ function Editor({
   }, [isEditorReady]);
 
   useEffect(() => {
-    if (!isMonacoMounting && !isEditorReady) {
+    if (!isEditorReady) {
       createEditor();
     }
-  }, [isMonacoMounting, isEditorReady, createEditor]);
+  }, [isEditorReady, createEditor]);
 
   // subscription
   // to avoid unnecessary updates (attach - dispose listener) in subscription

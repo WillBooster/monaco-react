@@ -1,17 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import MonacoEditor, { DiffEditor, useMonaco } from '@willbooster/monaco-react';
 
 export default function EditorProbe() {
   const [editorStatus, setEditorStatus] = useState('editor-pending');
   const [diffStatus, setDiffStatus] = useState('diff-pending');
-  const loadedMonaco = useMonaco();
 
   return (
     <>
-      <p data-testid="hook-status">{loadedMonaco?.editor ? 'hook-ok' : 'hook-pending'}</p>
+      <Suspense fallback={<p>hook-pending</p>}>
+        <HookStatus />
+      </Suspense>
       <div data-testid="editor-status">{editorStatus}</div>
       <MonacoEditor
         height={120}
@@ -35,4 +36,14 @@ export default function EditorProbe() {
       />
     </>
   );
+}
+
+function HookStatus() {
+  const loadedMonaco = useMonaco();
+
+  if (!loadedMonaco) {
+    return <p data-testid="hook-status">hook-pending</p>;
+  }
+
+  return <p data-testid="hook-status">{loadedMonaco.editor ? 'hook-ok' : 'hook-mismatch'}</p>;
 }

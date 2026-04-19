@@ -5,7 +5,7 @@ export interface ContainerProps {
   height: number | string;
   isEditorReady: boolean;
   loading: ReactNode | string;
-  _ref: RefObject<HTMLDivElement | null>;
+  _ref?: RefObject<HTMLDivElement | null>;
   className?: string;
   wrapperProps?: object;
 }
