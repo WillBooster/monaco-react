@@ -57,14 +57,15 @@ function createModelUri(monaco: Monaco, path: string): Uri {
     return monaco.Uri.parse(path);
   }
 
+  const normalizedPath = path.replaceAll('\\', '/');
   return monaco.Uri.from({
     scheme: 'file',
-    path: path.startsWith('/') ? path : `/${path}`,
+    path: normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`,
   });
 }
 
 function hasUriScheme(path: string): boolean {
-  return /^[a-z][a-z0-9+.-]*:/i.test(path);
+  return /^[a-z][a-z0-9+.-]+:/i.test(path);
 }
 
 export { noop, getOrCreateModel };
