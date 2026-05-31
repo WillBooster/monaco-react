@@ -53,7 +53,18 @@ function createModel(monaco: Monaco, value: string, language?: string, path?: st
  * @returns The model uri that was created
  */
 function createModelUri(monaco: Monaco, path: string): Uri {
-  return monaco.Uri.parse(path);
+  if (hasUriScheme(path)) {
+    return monaco.Uri.parse(path);
+  }
+
+  return monaco.Uri.from({
+    scheme: 'file',
+    path: path.startsWith('/') ? path : `/${path}`,
+  });
+}
+
+function hasUriScheme(path: string): boolean {
+  return /^[a-z][a-z0-9+.-]*:/i.test(path);
 }
 
 export { noop, getOrCreateModel };
