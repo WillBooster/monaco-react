@@ -58,6 +58,15 @@ function createModelUri(monaco: Monaco, path: string): Uri {
   }
 
   const normalizedPath = path.replaceAll('\\', '/');
+  if (normalizedPath.startsWith('//')) {
+    const [authority, ...pathParts] = normalizedPath.slice(2).split('/');
+    return monaco.Uri.from({
+      scheme: 'file',
+      authority,
+      path: `/${pathParts.join('/')}`,
+    });
+  }
+
   return monaco.Uri.from({
     scheme: 'file',
     path: normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`,
