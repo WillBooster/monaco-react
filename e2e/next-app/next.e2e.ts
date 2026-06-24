@@ -100,10 +100,13 @@ test('unmounts editors sharing a disposed model without surfacing disposal error
 
   await page.goto('/shared-model-disposal');
 
-  await expect(page.getByTestId('shared-editor-status')).toHaveText('ready-2', { timeout: monacoReadyTimeout });
+  await expect(page.getByTestId('shared-editor-status')).toHaveText('ready-4', { timeout: monacoReadyTimeout });
   await page.getByRole('button', { name: 'Hide first shared editor' }).click();
   await page.getByRole('button', { name: 'Check second model' }).click();
   await expect(page.getByTestId('second-model-status')).toHaveText('second-model-live');
+  await page.getByRole('button', { name: 'Hide shared diff editor' }).click();
+  await page.getByRole('button', { name: 'Check diff shared model' }).click();
+  await expect(page.getByTestId('diff-shared-model-status')).toHaveText('diff-shared-model-live');
   await page.getByRole('button', { name: 'Hide shared editors' }).click();
   await expect(page.getByTestId('shared-editor-status')).toHaveText('shared-editors-hidden');
   expect(errors).toEqual([]);

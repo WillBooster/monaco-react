@@ -248,11 +248,21 @@ function MountedDiffEditor({
     editor?.setModel(null);
     editor?.dispose();
 
-    if (!keepCurrentOriginalModel && models?.original && !models.original.isDisposed()) {
+    if (
+      !keepCurrentOriginalModel &&
+      models?.original &&
+      !models.original.isDisposed() &&
+      !models.original.isAttachedToEditor()
+    ) {
       models.original.dispose();
     }
 
-    if (!keepCurrentModifiedModel && models?.modified && !models.modified.isDisposed()) {
+    if (
+      !keepCurrentModifiedModel &&
+      models?.modified &&
+      !models.modified.isDisposed() &&
+      !models.modified.isAttachedToEditor()
+    ) {
       models.modified.dispose();
     }
 
