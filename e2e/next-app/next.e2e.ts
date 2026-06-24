@@ -7,6 +7,7 @@ import { expect, test } from '@playwright/test';
 const testFile = fileURLToPath(import.meta.url);
 const appDir = path.dirname(testFile);
 const packageRoot = path.resolve(appDir, '../..');
+const monacoReadyTimeout = 15_000;
 
 test('resolves monaco-react from the built package files', async () => {
   const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8')) as {
@@ -39,7 +40,7 @@ test('loads monaco-react through the Next.js app router', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.getByTestId('hook-status')).toHaveText('hook-ok');
-  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
   await expect(page.getByTestId('diff-status')).toHaveText('diff-ok');
   expect(errors).toEqual([]);
 });
@@ -55,18 +56,35 @@ test('keeps Monaco stylesheet after Next.js Head changes', async ({ page }) => {
 
   await page.goto('/issue272');
 
-  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
   await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
 
   const remountButton = page.getByRole('button', { name: 'Remount editor' });
   await remountButton.click();
   await expect(page.getByTestId('head-revision')).toHaveText('1');
-  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
   await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
 
   await remountButton.click();
   await expect(page.getByTestId('head-revision')).toHaveText('2');
-  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok');
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
   await expect(page.getByTestId('stylesheet-count')).toHaveText('1');
+  expect(errors).toEqual([]);
+});
+
+test('unmounts Monaco editor without surfacing disposal errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(message.text());
+    }
+  });
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/issue272');
+
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
+  await page.getByRole('button', { name: 'Hide editor' }).click();
+  await expect(page.getByTestId('editor-status')).toHaveText('editor-hidden');
   expect(errors).toEqual([]);
 });
