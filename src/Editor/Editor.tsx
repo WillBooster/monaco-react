@@ -305,7 +305,7 @@ function MountedEditor({
       // Detach first so editor.dispose() never reads from a model that another editor already disposed.
       // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
       editor.setModel(null);
-      if (!model.isDisposed()) {
+      if (!model.isDisposed() && !model.isAttachedToEditor()) {
         model.dispose();
       }
     }

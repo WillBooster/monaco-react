@@ -39,9 +39,9 @@ test('loads monaco-react through the Next.js app router', async ({ page }) => {
 
   await page.goto('/');
 
-  await expect(page.getByTestId('hook-status')).toHaveText('hook-ok');
+  await expect(page.getByTestId('hook-status')).toHaveText('hook-ok', { timeout: monacoReadyTimeout });
   await expect(page.getByTestId('editor-status')).toHaveText('editor-ok', { timeout: monacoReadyTimeout });
-  await expect(page.getByTestId('diff-status')).toHaveText('diff-ok');
+  await expect(page.getByTestId('diff-status')).toHaveText('diff-ok', { timeout: monacoReadyTimeout });
   expect(errors).toEqual([]);
 });
 
@@ -101,6 +101,9 @@ test('unmounts editors sharing a disposed model without surfacing disposal error
   await page.goto('/shared-model-disposal');
 
   await expect(page.getByTestId('shared-editor-status')).toHaveText('ready-2', { timeout: monacoReadyTimeout });
+  await page.getByRole('button', { name: 'Hide first shared editor' }).click();
+  await page.getByRole('button', { name: 'Check second model' }).click();
+  await expect(page.getByTestId('second-model-status')).toHaveText('second-model-live');
   await page.getByRole('button', { name: 'Hide shared editors' }).click();
   await expect(page.getByTestId('shared-editor-status')).toHaveText('shared-editors-hidden');
   expect(errors).toEqual([]);

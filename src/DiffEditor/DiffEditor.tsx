@@ -248,12 +248,12 @@ function MountedDiffEditor({
     editor?.setModel(null);
     editor?.dispose();
 
-    if (!keepCurrentOriginalModel && !models?.original.isDisposed()) {
-      models?.original?.dispose();
+    if (!keepCurrentOriginalModel && models?.original && !models.original.isDisposed()) {
+      models.original.dispose();
     }
 
-    if (!keepCurrentModifiedModel && !models?.modified.isDisposed()) {
-      models?.modified?.dispose();
+    if (!keepCurrentModifiedModel && models?.modified && !models.modified.isDisposed()) {
+      models.modified.dispose();
     }
 
     // oxlint-disable-next-line unicorn/no-null -- React refs use null after unmount.
