@@ -292,16 +292,23 @@ function MountedEditor({
 
   function disposeEditor(): void {
     subscriptionRef.current?.dispose();
+    const editor = editorRef.current!;
+    const model = editor.getModel();
 
     if (keepCurrentModel) {
       if (saveViewState) {
-        viewStates.set(path, editorRef.current!.saveViewState());
+        viewStates.set(path, editor.saveViewState());
       }
-    } else {
-      editorRef.current!.getModel()?.dispose();
+      // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+      editor.setModel(null);
+    } else if (model && !model.isDisposed()) {
+      // Detach first so Monaco does not cancel editor-owned async work while React is unmounting.
+      // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+      editor.setModel(null);
+      model.dispose();
     }
 
-    editorRef.current!.dispose();
+    editor.dispose();
 
     editorRef.current = undefined;
     preventCreation.current = false;
