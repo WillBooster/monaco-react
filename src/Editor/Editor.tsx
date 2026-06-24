@@ -301,11 +301,13 @@ function MountedEditor({
       }
       // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
       editor.setModel(null);
-    } else if (model && !model.isDisposed()) {
-      // Detach first so Monaco does not cancel editor-owned async work while React is unmounting.
+    } else if (model) {
+      // Detach first so editor.dispose() never reads from a model that another editor already disposed.
       // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
       editor.setModel(null);
-      model.dispose();
+      if (!model.isDisposed()) {
+        model.dispose();
+      }
     }
 
     editor.dispose();

@@ -88,3 +88,20 @@ test('unmounts Monaco editor without surfacing disposal errors', async ({ page }
   await expect(page.getByTestId('editor-status')).toHaveText('editor-hidden');
   expect(errors).toEqual([]);
 });
+
+test('unmounts editors sharing a disposed model without surfacing disposal errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(message.text());
+    }
+  });
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/shared-model-disposal');
+
+  await expect(page.getByTestId('shared-editor-status')).toHaveText('ready-2', { timeout: monacoReadyTimeout });
+  await page.getByRole('button', { name: 'Hide shared editors' }).click();
+  await expect(page.getByTestId('shared-editor-status')).toHaveText('shared-editors-hidden');
+  expect(errors).toEqual([]);
+});
