@@ -244,8 +244,6 @@ function MountedDiffEditor({
     const editor = editorRef.current;
     const models = editor?.getModel();
 
-    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches diff models with null.
-    editor?.setModel(null);
     editor?.dispose();
 
     if (
