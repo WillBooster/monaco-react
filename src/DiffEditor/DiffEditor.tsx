@@ -244,6 +244,11 @@ function MountedDiffEditor({
     const editor = editorRef.current;
     const models = editor?.getModel();
 
+    // Detach inner editor models first so editor.dispose() never reads from a model that another owner disposed.
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+    editor?.getOriginalEditor().setModel(null);
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+    editor?.getModifiedEditor().setModel(null);
     editor?.dispose();
 
     if (

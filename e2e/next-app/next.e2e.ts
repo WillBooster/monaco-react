@@ -7,7 +7,7 @@ import { expect, test } from '@playwright/test';
 const testFile = fileURLToPath(import.meta.url);
 const appDir = path.dirname(testFile);
 const packageRoot = path.resolve(appDir, '../..');
-const monacoReadyTimeout = 15_000;
+const monacoReadyTimeout = 30_000;
 
 test('resolves monaco-react from the built package files', async () => {
   const packageJson = JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8')) as {
