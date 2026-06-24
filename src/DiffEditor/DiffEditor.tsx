@@ -244,16 +244,29 @@ function MountedDiffEditor({
     const editor = editorRef.current;
     const models = editor?.getModel();
 
-    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches diff models with null.
-    editor?.setModel(null);
+    // Detach inner editor models first so editor.dispose() never reads from a model that another owner disposed.
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+    editor?.getOriginalEditor().setModel(null);
+    // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+    editor?.getModifiedEditor().setModel(null);
     editor?.dispose();
 
-    if (!keepCurrentOriginalModel && !models?.original.isDisposed()) {
-      models?.original?.dispose();
+    if (
+      !keepCurrentOriginalModel &&
+      models?.original &&
+      !models.original.isDisposed() &&
+      !models.original.isAttachedToEditor()
+    ) {
+      models.original.dispose();
     }
 
-    if (!keepCurrentModifiedModel && !models?.modified.isDisposed()) {
-      models?.modified?.dispose();
+    if (
+      !keepCurrentModifiedModel &&
+      models?.modified &&
+      !models.modified.isDisposed() &&
+      !models.modified.isAttachedToEditor()
+    ) {
+      models.modified.dispose();
     }
 
     // oxlint-disable-next-line unicorn/no-null -- React refs use null after unmount.

@@ -21,6 +21,11 @@ export default function Issue272Page() {
     requestAnimationFrame(() => setIsEditorVisible(true));
   }
 
+  function unmountEditor() {
+    setIsEditorVisible(false);
+    setEditorStatus('editor-hidden');
+  }
+
   return (
     <>
       <Head>
@@ -30,6 +35,9 @@ export default function Issue272Page() {
       <main>
         <button type="button" onClick={remountEditorWithHeadChange}>
           Remount editor
+        </button>
+        <button type="button" onClick={unmountEditor}>
+          Hide editor
         </button>
         <p data-testid="head-revision">{headRevision}</p>
         <p data-testid="stylesheet-count">{stylesheetCount}</p>

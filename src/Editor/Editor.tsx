@@ -292,16 +292,25 @@ function MountedEditor({
 
   function disposeEditor(): void {
     subscriptionRef.current?.dispose();
+    const editor = editorRef.current!;
+    const model = editor.getModel();
 
     if (keepCurrentModel) {
       if (saveViewState) {
-        viewStates.set(path, editorRef.current!.saveViewState());
+        viewStates.set(path, editor.saveViewState());
       }
-    } else {
-      editorRef.current!.getModel()?.dispose();
+      // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+      editor.setModel(null);
+    } else if (model) {
+      // Detach first so editor.dispose() never reads from a model that another editor already disposed.
+      // oxlint-disable-next-line unicorn/no-null -- Monaco detaches editor models with null.
+      editor.setModel(null);
+      if (!model.isDisposed() && !model.isAttachedToEditor()) {
+        model.dispose();
+      }
     }
 
-    editorRef.current!.dispose();
+    editor.dispose();
 
     editorRef.current = undefined;
     preventCreation.current = false;
