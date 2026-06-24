@@ -4047,12 +4047,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@willbooster/monaco-loader@npm:1.1.2":
-  version: 1.1.2
-  resolution: "@willbooster/monaco-loader@npm:1.1.2"
+"@willbooster/monaco-loader@npm:1.1.3":
+  version: 1.1.3
+  resolution: "@willbooster/monaco-loader@npm:1.1.3"
   dependencies:
     monaco-editor: "npm:0.55.1"
-  checksum: 10c0/eb4f6297cb0d6d849d0d2acb01e4516a1dca9b001d3a81657155723eb62be82e8a88daedc37b25d34d0fa23fa2594b889a27de5552b972944e2e4d347c6b442a
+  checksum: 10c0/ba5f9fc49d47e1ce12006ce1151bbdc389a3747bfb856860b3a6f5bb5508b9425fe07876b5e4ab497e6829eb790d64241f10801ea042de3ebdd6072f1627cc86
   languageName: node
   linkType: hard
 
@@ -4070,7 +4070,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     "@types/react-dom": "npm:19.2.3"
     "@typescript/native-preview": "npm:7.0.0-dev.20260421.2"
-    "@willbooster/monaco-loader": "npm:1.1.2"
+    "@willbooster/monaco-loader": "npm:1.1.3"
     "@willbooster/oxfmt-config": "npm:1.2.2"
     "@willbooster/oxlint-config": "npm:1.4.8"
     "@willbooster/wb": "npm:13.22.18"
