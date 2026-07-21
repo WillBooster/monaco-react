@@ -15,7 +15,7 @@
       }
     ],
     "paths": {
-      "@willbooster/monaco-react": ["../../dist/index.d.ts", "../../src/index.ts"]
+      "@willbooster/monaco-react": ["../../../src/index.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
