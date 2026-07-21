@@ -8,6 +8,6 @@ export default defineConfig({
       printBasicPrototype: true,
     },
     setupFiles: ['./setupTests.ts'],
-    exclude: ['**/node_modules/**', '**/demo/**', '**/playground/**'],
+    exclude: ['**/node_modules/**', '**/demo/**', '**/playground/**', 'test/e2e/**'],
   },
 });

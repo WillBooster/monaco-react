@@ -6,7 +6,6 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "importHelpers": false,
-    "jsx": "react-jsx",
     "lib": ["esnext", "dom", "dom.iterable"],
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -18,25 +17,17 @@
     "noUnusedParameters": true,
     "outDir": "./dist",
     "paths": {
-      "@willbooster/monaco-react": ["./src/index.ts"]
+      "@willbooster/monaco-react": ["./src/index.ts"],
+      "undici-types": ["./node_modules/undici-types/index.d.ts"]
     },
     "resolveJsonModule": true,
     "rootDir": ".",
     "skipLibCheck": true,
     "strict": true,
     "target": "es2020",
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals", "bun"]
   },
   "exclude": ["test/fixtures"],
-  "extends": ["@tsconfig/node-lts/tsconfig.json", "@tsconfig/node-ts/tsconfig.json"],
-  "include": [
-    "*.config.ts",
-    "e2e/**/*",
-    "scripts/**/*",
-    "setupTests.ts",
-    "src",
-    "src/**/*",
-    "test/**/*",
-    "vitest.config.ts"
-  ]
+  "extends": ["@tsconfig/bun/tsconfig.json", "@tsconfig/node-lts/tsconfig.json", "@tsconfig/node-ts/tsconfig.json"],
+  "include": ["*.config.ts", "scripts/**/*", "setupTests.ts", "src", "src/**/*", "test/**/*", "vitest.config.ts"]
 }

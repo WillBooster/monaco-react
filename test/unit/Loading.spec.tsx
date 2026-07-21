@@ -1,4 +1,4 @@
-import Loading from '.';
+import Loading from '../../src/Loading';
 import { render } from '@testing-library/react';
 
 describe('<Loading />', () => {
