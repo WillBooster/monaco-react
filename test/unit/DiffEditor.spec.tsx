@@ -1,9 +1,9 @@
-import Editor from '.';
+import DiffEditor from '../../src/DiffEditor';
 import { render } from '@testing-library/react';
 
-describe('<Editor />', () => {
+describe('<DiffEditor />', () => {
   it('should check render with snapshot', () => {
-    const component = render(<Editor />);
+    const component = render(<DiffEditor />);
 
     expect(component).toMatchSnapshot();
   });

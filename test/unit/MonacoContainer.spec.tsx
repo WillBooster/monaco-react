@@ -1,5 +1,5 @@
 import { createRef } from 'react';
-import MonacoContainer from '.';
+import MonacoContainer from '../../src/MonacoContainer';
 import { render } from '@testing-library/react';
 
 describe('<MonacoContainer />', () => {
