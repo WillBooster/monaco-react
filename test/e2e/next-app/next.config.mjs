@@ -26,11 +26,11 @@ function commonAncestor(a, b) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // The repo pins the native TypeScript 7 preview, whose package lacks the classic compiler API
-  // that Next's in-build TypeScript verification expects (yarn used to bridge this with a builtin
-  // compat patch; bun does not). The fixture's types are already checked by the repo's own `tsc`
-  // (tsconfig includes test/**), so skip Next's redundant check to keep the build working under bun.
-  typescript: { ignoreBuildErrors: true },
+  // The repo pins the native TypeScript 7 preview, whose package does not expose the classic
+  // compiler API Next's default in-build type check requires (it would otherwise try to npm-install
+  // a classic typescript, which fails on bun's isolated node_modules). Run the TypeScript CLI (tsgo)
+  // instead — supported since Next 16.3 — so the fixture is type-checked natively during the build.
+  experimental: { useTypeScriptCli: true },
   turbopack: {
     root: commonAncestor(process.cwd(), os.homedir()),
   },
