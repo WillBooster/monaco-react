@@ -16,7 +16,7 @@ export { Editor };
 export default Editor;
 
 // Monaco
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type * as monaco from 'monaco-editor';
 export type Monaco = typeof monaco;
 
 // Default themes

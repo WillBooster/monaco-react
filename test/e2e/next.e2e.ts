@@ -23,9 +23,7 @@ test('resolves monaco-react from the built package files', async () => {
     '"use strict"'
   );
   await expect(readFile(path.join(packageRoot, 'dist/index.js'), 'utf8')).resolves.toMatch(/^"use client";/);
-  await expect(readFile(path.join(packageRoot, 'dist/index.d.ts'), 'utf8')).resolves.toContain(
-    "from 'monaco-editor/esm/vs/editor/editor.api.js'"
-  );
+  await expect(readFile(path.join(packageRoot, 'dist/index.d.ts'), 'utf8')).resolves.toContain("from 'monaco-editor'");
 });
 
 test('loads monaco-react through the Next.js app router', async ({ page }) => {
