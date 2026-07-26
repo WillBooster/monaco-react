@@ -1,4 +1,4 @@
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { editor } from 'monaco-editor';
 import type { ReactNode } from 'react';
 import type { Monaco } from '..';
 

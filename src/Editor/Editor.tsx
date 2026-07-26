@@ -6,7 +6,7 @@ import useMount from '../hooks/useMount';
 import useUpdate from '../hooks/useUpdate';
 import usePrevious from '../hooks/usePrevious';
 import useMonaco from '../hooks/useMonaco';
-import type { IDisposable, Uri, editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { IDisposable, Uri, editor } from 'monaco-editor';
 import { noop, getOrCreateModel } from '../utils';
 import type { EditorProps } from './types';
 import type { Monaco } from '..';

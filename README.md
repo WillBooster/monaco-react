@@ -19,6 +19,8 @@ yarn add @willbooster/monaco-react
 
 `react` and `react-dom` are peer dependencies. `monaco-editor` is a direct dependency for Monaco type resolution. This package supports React 19.x, Node.js 24 or newer, and is tested with Next.js 16.
 
+TypeScript consumers need a `moduleResolution` of `bundler`, `node16`, or `nodenext`. `monaco-editor` 0.56.0 exposes its types only through its `exports` map — its legacy `typings` field points at a file that is not in the published tarball — so the legacy `node10` resolution cannot find them.
+
 ## Usage
 
 ```tsx

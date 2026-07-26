@@ -1,5 +1,5 @@
 import type { Monaco } from '..';
-import type { Uri, editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { Uri, editor } from 'monaco-editor';
 
 /**
  * noop is a helper function that does nothing
