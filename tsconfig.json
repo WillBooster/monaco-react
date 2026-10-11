@@ -29,5 +29,14 @@
   },
   "exclude": ["test/fixtures"],
   "extends": ["@tsconfig/bun/tsconfig.json", "@tsconfig/node-lts/tsconfig.json", "@tsconfig/node-ts/tsconfig.json"],
-  "include": ["*.config.ts", "scripts/**/*", "setupTests.ts", "src", "src/**/*", "test/**/*", "vitest.config.ts"]
+  "include": [
+    "*.config.mts",
+    "*.config.ts",
+    "scripts/**/*",
+    "setupTests.ts",
+    "src",
+    "src/**/*",
+    "test/**/*",
+    "vitest.config.ts"
+  ]
 }
