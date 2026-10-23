@@ -1,6 +1,7 @@
 import type { editor } from 'monaco-editor';
-import type { Monaco } from '..';
 import type { ReactNode } from 'react';
+
+import type { Monaco } from '..';
 
 export type OnMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => void;
 

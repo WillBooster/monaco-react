@@ -1,15 +1,15 @@
 'use client';
 
-import { Suspense, useState, useRef, useCallback, useEffect } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-import MonacoContainer from '../MonacoContainer';
+import type { Monaco } from '..';
+import useMonaco from '../hooks/useMonaco';
 import useMount from '../hooks/useMount';
 import useUpdate from '../hooks/useUpdate';
-import useMonaco from '../hooks/useMonaco';
-import { noop, getOrCreateModel } from '../utils';
+import MonacoContainer from '../MonacoContainer';
+import { getOrCreateModel, noop } from '../utils';
 import type { DiffEditorProps, MonacoDiffEditor } from './types';
-import type { Monaco } from '..';
 
 function DiffEditor(props: DiffEditorProps): ReactElement {
   const { width = '100%', height = '100%', loading = 'Loading...', className, wrapperProps = {} } = props;

@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/@willbooster/monaco-react.svg)](https://www.npmjs.com/package/@willbooster/monaco-react)
 [![Test](https://github.com/WillBooster/monaco-react/actions/workflows/test.yml/badge.svg)](https://github.com/WillBooster/monaco-react/actions/workflows/test.yml)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![wbfy](https://img.shields.io/badge/wbfy-20.46.3-1e90ff.svg)](https://github.com/WillBooster/shared/tree/main/packages/wbfy)
+[![wbfy](https://img.shields.io/badge/wbfy-20.48.5-1e90ff.svg)](https://github.com/WillBooster/shared/tree/main/packages/wbfy)
 
 React components for [Monaco Editor](https://microsoft.github.io/monaco-editor/), powered by [`@willbooster/monaco-loader`](https://github.com/WillBooster/monaco-loader).
 
@@ -73,8 +73,8 @@ import Editor, { DiffEditor, loader, useMonaco } from '@willbooster/monaco-react
 By default Monaco is loaded from the CDN configured by `@willbooster/monaco-loader`. You can provide your own Monaco instance or loader paths before rendering an editor.
 
 ```tsx
-import * as monaco from 'monaco-editor';
 import { loader } from '@willbooster/monaco-react';
+import * as monaco from 'monaco-editor';
 
 loader.config({ monaco });
 ```

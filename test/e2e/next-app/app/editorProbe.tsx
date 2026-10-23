@@ -1,8 +1,7 @@
 'use client';
 
-import { Suspense, useState } from 'react';
-
 import MonacoEditor, { DiffEditor, useMonaco } from '@willbooster/monaco-react';
+import { Suspense, useState } from 'react';
 
 export default function EditorProbe() {
   const [editorStatus, setEditorStatus] = useState('editor-pending');

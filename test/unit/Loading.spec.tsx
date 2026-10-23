@@ -1,5 +1,6 @@
-import Loading from '../../src/Loading';
 import { render } from '@testing-library/react';
+
+import Loading from '../../src/Loading';
 
 describe('<Loading />', () => {
   it('should check render with snapshot', () => {

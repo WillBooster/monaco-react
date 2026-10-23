@@ -1,5 +1,6 @@
-import Editor from '../../src/Editor';
 import { render } from '@testing-library/react';
+
+import Editor from '../../src/Editor';
 
 describe('<Editor />', () => {
   it('should check render with snapshot', () => {

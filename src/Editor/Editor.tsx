@@ -1,16 +1,17 @@
 'use client';
 
-import { Suspense, useState, useEffect, useRef, useCallback } from 'react';
+import type { editor, IDisposable, Uri } from 'monaco-editor';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
-import useMount from '../hooks/useMount';
-import useUpdate from '../hooks/useUpdate';
-import usePrevious from '../hooks/usePrevious';
-import useMonaco from '../hooks/useMonaco';
-import type { IDisposable, Uri, editor } from 'monaco-editor';
-import { noop, getOrCreateModel } from '../utils';
-import type { EditorProps } from './types';
+
 import type { Monaco } from '..';
+import useMonaco from '../hooks/useMonaco';
+import useMount from '../hooks/useMount';
+import usePrevious from '../hooks/usePrevious';
+import useUpdate from '../hooks/useUpdate';
 import MonacoContainer from '../MonacoContainer';
+import { getOrCreateModel, noop } from '../utils';
+import type { EditorProps } from './types';
 
 const viewStates = new Map();
 

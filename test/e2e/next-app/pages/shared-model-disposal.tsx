@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
-
 import MonacoEditor, { DiffEditor } from '@willbooster/monaco-react';
+import { useRef, useState } from 'react';
 
 export default function SharedModelDisposalPage() {
   const secondEditorRef = useRef<{ getModel(): { isDisposed(): boolean } | null } | undefined>(undefined);
