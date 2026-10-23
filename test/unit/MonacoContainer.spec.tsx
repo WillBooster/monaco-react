@@ -1,6 +1,7 @@
-import { createRef } from 'react';
-import MonacoContainer from '../../src/MonacoContainer';
 import { render } from '@testing-library/react';
+import { createRef } from 'react';
+
+import MonacoContainer from '../../src/MonacoContainer';
 
 describe('<MonacoContainer />', () => {
   it('should check render with snapshot', () => {

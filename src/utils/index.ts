@@ -1,5 +1,6 @@
+import type { editor, Uri } from 'monaco-editor';
+
 import type { Monaco } from '..';
-import type { Uri, editor } from 'monaco-editor';
 
 /**
  * noop is a helper function that does nothing

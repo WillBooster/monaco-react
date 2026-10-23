@@ -1,7 +1,6 @@
+import MonacoEditor from '@willbooster/monaco-react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-
-import MonacoEditor from '@willbooster/monaco-react';
 
 export default function Issue272Page() {
   const [headRevision, setHeadRevision] = useState(0);

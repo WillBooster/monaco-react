@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
-import styles from './styles';
 import Loading from '../Loading';
+import styles from './styles';
 import type { ContainerProps } from './types';
 
 // ** forwardref render functions do not support proptypes or defaultprops **

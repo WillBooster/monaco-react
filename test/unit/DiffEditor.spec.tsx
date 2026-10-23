@@ -1,5 +1,6 @@
-import DiffEditor from '../../src/DiffEditor';
 import { render } from '@testing-library/react';
+
+import DiffEditor from '../../src/DiffEditor';
 
 describe('<DiffEditor />', () => {
   it('should check render with snapshot', () => {
